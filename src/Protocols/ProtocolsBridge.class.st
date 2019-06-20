@@ -1,7 +1,7 @@
 Class {
 	#name : #ProtocolsBridge,
 	#superclass : #GitBridge,
-	#category : #Protocols
+	#category : #'Protocols-Utils'
 }
 
 { #category : #accessing }

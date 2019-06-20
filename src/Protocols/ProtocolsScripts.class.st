@@ -1,7 +1,7 @@
 Class {
 	#name : #ProtocolsScripts,
 	#superclass : #Object,
-	#category : #Protocols
+	#category : #'Protocols-Utils'
 }
 
 { #category : #scripts }
