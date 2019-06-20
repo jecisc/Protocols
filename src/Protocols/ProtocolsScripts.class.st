@@ -10,7 +10,7 @@ ProtocolsScripts class >> exportInfos [
 	| methods protocols |
 	methods := (Smalltalk globals allClasses flatCollect: #methods) groupedBy: #protocol.
 	protocols := Dictionary new.
-	Smalltalk globals allClasses do: [ :class | class protocols do: [ :protocol | protocols at: protocol ifPresent: [ protocols at: protocol put: (protocols at: protocol) + 1 ] ifAbsentPut: 1 ] ].
+	Smalltalk globals allClasses do: [ :class | class protocols do: [ :protocol | protocols at: protocol ifPresent: [ :num | protocols at: protocol put: num + 1 ] ifAbsent: [ protocols at: protocol put: 1 ] ] ].
 
 	('protocolsPharo' , SystemVersion current major asString , '.csv') asFileReference
 		ensureDelete;
@@ -31,4 +31,36 @@ ProtocolsScripts class >> exportInfos [
 								<< classesUsing asString;
 								<< '"';
 								lf ] ] ]
+]
+
+{ #category : #scripts }
+ProtocolsScripts class >> exportInfos2 [
+	<script>
+	SystemVersion current major < 3
+		ifFalse: [ ('methodsPharo' , SystemVersion current major asString , '.csv') asFileReference
+				ensureDelete;
+				ensureCreateFile;
+				writeStreamDo: [ :s | 
+					s
+						<< 'selector,protocol,class,package';
+						lf.
+					(Smalltalk globals allClasses flatCollect: #methods)
+						do: [ :method | 
+							(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method class package name)
+								<< '"';
+								lf ] ] ]
+		ifTrue: [ ('methodsPharo' , SystemVersion current major asString , '.csv') asFileReference
+				ensureDeleted;
+				ensureFile;
+				writeStreamDo: [ :s | 
+					s
+						<< 'selector,protocol,class,package';
+						lf.
+					(Smalltalk globals allClasses collect: #methods)
+						do: [ :methods | 
+							methods
+								do: [ :method | 
+									(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method class package name)
+										<< '"';
+										lf ] ] ] ]
 ]
