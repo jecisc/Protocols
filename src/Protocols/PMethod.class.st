@@ -30,6 +30,17 @@ PMethod >> package: anObject [
 	package := anObject
 ]
 
+{ #category : #printing }
+PMethod >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		nextPutAll: self methodClass;
+		nextPutAll: '>>';
+		nextPutAll: self selector;
+		nextPut: $)
+]
+
 { #category : #accessing }
 PMethod >> protocol [
 	^ protocol

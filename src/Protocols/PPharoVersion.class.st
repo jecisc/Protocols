@@ -8,13 +8,26 @@ Class {
 	#category : #'Protocols-Model'
 }
 
+{ #category : #adding }
+PPharoVersion >> addProtocol: aPProtocol [ 
+	self protocols add: aPProtocol
+]
+
+{ #category : #initialization }
+PPharoVersion >> initialize [
+	super initialize.
+	protocols := Set new
+]
+
 { #category : #printing }
 PPharoVersion >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $[;
 		print: version;
-		nextPut: $]
+		nextPutAll: '](';
+		print: protocols size;
+		nextPut: $)
 ]
 
 { #category : #accessing }

@@ -8,20 +8,15 @@ Class {
 	#category : #'Protocols-Model'
 }
 
-{ #category : #initialization }
-PProtocol >> initialize [
-	super initialize.
-	methods := Set new
-]
-
 { #category : #accessing }
 PProtocol >> methods [
 	^ methods
 ]
 
 { #category : #accessing }
-PProtocol >> methods: anObject [
-	methods := anObject
+PProtocol >> methods: aCollection [
+	methods := aCollection.
+	aCollection do: [ :method | method protocol: self ]
 ]
 
 { #category : #accessing }
@@ -32,4 +27,15 @@ PProtocol >> name [
 { #category : #accessing }
 PProtocol >> name: anObject [
 	name := anObject
+]
+
+{ #category : #printing }
+PProtocol >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		nextPutAll: self name;
+		nextPutAll: ')[';
+		print: self methods size;
+		nextPut: $]
 ]
