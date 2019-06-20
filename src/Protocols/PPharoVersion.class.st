@@ -35,6 +35,11 @@ PPharoVersion >> methods [
 ]
 
 { #category : #accessing }
+PPharoVersion >> newProtocolsSince: previousVersion [ 
+	^ self protocols select: [ :protocol | previousVersion protocols noneSatisfy: [ :p | p name = protocol name ] ]
+]
+
+{ #category : #accessing }
 PPharoVersion >> nonExtensionProtocols [
 	^ self protocols reject: #isExtension
 ]
@@ -63,6 +68,11 @@ PPharoVersion >> protocols [
 { #category : #accessing }
 PPharoVersion >> protocols: anObject [
 	protocols := anObject
+]
+
+{ #category : #accessing }
+PPharoVersion >> removedProtocolsSince: previousVersion [
+	^ previousVersion protocols select: [ :protocol | self protocols noneSatisfy: [ :p | p name = protocol name ] ]
 ]
 
 { #category : #accessing }
