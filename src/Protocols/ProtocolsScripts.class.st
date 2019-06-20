@@ -46,7 +46,7 @@ ProtocolsScripts class >> exportInfos2 [
 						lf.
 					(Smalltalk globals allClasses flatCollect: #methods)
 						do: [ :method | 
-							(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method class package name)
+							(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method methodClass package name)
 								<< '"';
 								lf ] ] ]
 		ifTrue: [ ('methodsPharo' , SystemVersion current major asString , '.csv') asFileReference
@@ -60,7 +60,7 @@ ProtocolsScripts class >> exportInfos2 [
 						do: [ :methods | 
 							methods
 								do: [ :method | 
-									(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method class package name)
+									(s << '"' << method selector << '","' << method protocol << '","' << method methodClass name << '","' << method methodClass package name)
 										<< '"';
 										lf ] ] ] ]
 ]

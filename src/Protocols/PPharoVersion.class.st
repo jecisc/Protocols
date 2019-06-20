@@ -13,10 +13,35 @@ PPharoVersion >> addProtocol: aPProtocol [
 	self protocols add: aPProtocol
 ]
 
+{ #category : #accessing }
+PPharoVersion >> classes [
+	^ self protocols flatCollect: #classes as: Set
+]
+
+{ #category : #accessing }
+PPharoVersion >> extensionProtocols [
+	^ self protocols select: #isExtension
+]
+
 { #category : #initialization }
 PPharoVersion >> initialize [
 	super initialize.
 	protocols := Set new
+]
+
+{ #category : #accessing }
+PPharoVersion >> methods [
+	^ self protocols flatCollect: #methods as: Set
+]
+
+{ #category : #accessing }
+PPharoVersion >> nonExtensionProtocols [
+	^ self protocols reject: #isExtension
+]
+
+{ #category : #accessing }
+PPharoVersion >> packages [
+	^ self protocols flatCollect: #packages as: Set
 ]
 
 { #category : #printing }

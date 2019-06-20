@@ -9,6 +9,16 @@ Class {
 }
 
 { #category : #accessing }
+PProtocol >> classes [
+	^ self methods collect: #methodClass as: Set
+]
+
+{ #category : #testing }
+PProtocol >> isExtension [
+	^ self name first = $*
+]
+
+{ #category : #accessing }
 PProtocol >> methods [
 	^ methods
 ]
@@ -27,6 +37,11 @@ PProtocol >> name [
 { #category : #accessing }
 PProtocol >> name: anObject [
 	name := anObject
+]
+
+{ #category : #accessing }
+PProtocol >> packages [
+	^ self methods collect: #package as: Set
 ]
 
 { #category : #printing }
