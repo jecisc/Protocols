@@ -64,3 +64,30 @@ ProtocolsScripts class >> exportInfos2 [
 										<< '"';
 										lf ] ] ] ]
 ]
+
+{ #category : #'as yet unclassified' }
+ProtocolsScripts class >> script1 [
+	| versions p7 lessUsed mostUsed possibleTypos |
+	versions := MethodsInfoReader cachedVersions.
+
+	p7 := versions detect: [ :e | e version = 7 ].
+
+	lessUsed := p7 nonExtensionProtocols select: [ :e | e classes size < 5 ].
+	mostUsed := p7 nonExtensionProtocols select: [ :e | e classes size > 20 ].
+
+	lessUsed size.	"2163"
+	mostUsed size.	"93"
+
+	possibleTypos := Dictionary new.
+	lessUsed do: [ :proto | (mostUsed select: [ :p | (proto name levenshteinDistanceWith: p name) < 2 ]) ifNotEmpty: [ :potentialCorrections | possibleTypos at: proto put: potentialCorrections ] ].
+	possibleTypos size.
+	String
+		streamContents: [ :s | 
+			possibleTypos
+				keysAndValuesDo: [ :k :v | 
+					s
+						<< k name;
+						tab: 4.
+					v do: [ :p | s << p name ] separatedBy: [ s << ', ' ].
+					s lf ] ]
+]
