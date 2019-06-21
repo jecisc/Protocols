@@ -33,3 +33,4 @@ removedProtocols size. "344"
 # Ideas
 
 - Extend Calypso to show protocols with `-` separator as tree.
+- Heuristic: if special characters or numbers, in general the protocol name is wrong.
