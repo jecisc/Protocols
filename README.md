@@ -29,3 +29,7 @@ removedProtocols := p7 removedProtocolsSince: p6.
 removedProtocols size. "344"
 (removedProtocols reject: #isExtension) size. "287"
 ```
+
+# Ideas
+
+- Extend Calypso to show protocols with `-` separator as tree.
